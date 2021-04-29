@@ -26,3 +26,8 @@ target/
 .settings/
 .classpath
 .project
+
+web-jsp/target
+web-jsp/.settings
+web-jsp/.classpath
+web-jsp/.project
