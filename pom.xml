@@ -18,6 +18,9 @@
 		<servlet.version>4.0.1</servlet.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<logback.version>1.2.3</logback.version>
+		<bootstrap.version>4.6.0-1</bootstrap.version>
+		<jquery.version>3.6.0</jquery.version>
+		<jstl.version>1.2</jstl.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -39,6 +42,11 @@
 				<version>${servlet.version}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
+				<version>${jstl.version}</version>
+			</dependency>
 			<!-- Logging dependencies -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -49,6 +57,17 @@
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
 				<version>${logback.version}</version>
+			</dependency>
+			<!-- webjars dependencies -->
+			<dependency>
+				<groupId>org.webjars</groupId>
+				<artifactId>bootstrap</artifactId>
+				<version>${bootstrap.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.webjars</groupId>
+				<artifactId>jquery</artifactId>
+				<version>${jquery.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
