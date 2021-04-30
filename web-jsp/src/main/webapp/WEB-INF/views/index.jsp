@@ -1,12 +1,14 @@
-<%@ page contentType="text/html; charset=ISO-8859-1" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Welcome to Sports Bazaar</title>
+<title><spring:message code="app.common.title" /></title>
 <!-- Bootstrap core CSS -->
 <link href="<c:url value="/resources/webjars/bootstrap/4.6.0-1/css/bootstrap.css" />" rel="stylesheet">
 <!-- Favicon -->
@@ -65,8 +67,12 @@
 	</nav>
 	<main role="main" class="container">
 		<div class="starter-template">
-			<h1>Bootstrap starter template</h1>
+			<h1><spring:message code="app.common.title" /></h1>
 			<p class="lead">
+				You can choose your default language from below.<br>
+				<a href="?lang=en"><spring:message code="app.common.lang.english" /></a> | 
+				<a href="?lang=hi"><spring:message code="app.common.lang.hindi" /></a>
+				<br>
 				Use this document as a way to quickly start any new project.<br>
 				All you get is this text and a mostly barebones HTML document.
 			</p>
