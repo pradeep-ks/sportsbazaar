@@ -33,7 +33,11 @@
 						<spring:message code="app.navbar.home.text" />
 					</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+				<li class="nav-item">
+					<a class="nav-link" href="<c:url value="/about" />">
+						<spring:message code="app.navbar.about.text" />
+					</a>
+				</li>
 				<li class="nav-item"><a class="nav-link disabled" href="#"
 					tabindex="-1" aria-disabled="true">Disabled</a></li>
 				<li class="nav-item dropdown"><a
