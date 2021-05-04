@@ -21,6 +21,7 @@
 		<bootstrap.version>4.6.0-1</bootstrap.version>
 		<jquery.version>3.6.0</jquery.version>
 		<jstl.version>1.2</jstl.version>
+		<jsp-api.version>2.2</jsp-api.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -40,6 +41,12 @@
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>${servlet.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>jsp-api</artifactId>
+				<version>${jsp-api.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
