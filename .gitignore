@@ -31,3 +31,8 @@ web-jsp/target
 web-jsp/.settings
 web-jsp/.classpath
 web-jsp/.project
+
+persistence/target
+persistence/.settings
+persistence/.classpath
+persistence/.project
