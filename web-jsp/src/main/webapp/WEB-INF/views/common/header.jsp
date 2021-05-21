@@ -15,6 +15,30 @@
 <link rel="favicon" href="#">
 <!-- Custom styles for this template -->
 <link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
+<script>
+function loadCategories() {
+	var http = new XMLHttpRequest();
+	var apiUrl = '/web-jsp/categories';
+	
+	http.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			console.log(this.responseText);
+			var categories = JSON.parse(this.responseText);
+			
+			// var elm = document.getElementById('category-dropdown');
+			var elm = document.querySelector('#category-dropdown');
+			var htmlText = '';
+			for (var i = 0; i < categories.length; i++) {
+				htmlText += '<a class="dropdown-item" href="#">'+ categories[i].categoryName + '</a>';
+			}
+			elm.innerHTML = htmlText;
+		}
+	};
+	
+	http.open('GET', apiUrl, true);
+	http.send();
+}
+</script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -44,14 +68,18 @@
 						<spring:message code="app.navbar.contact.text" />
 					</a>
 				</li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="dropdown01"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-					<div class="dropdown-menu" aria-labelledby="dropdown01">
-						<a class="dropdown-item" href="#">Action</a> <a
-							class="dropdown-item" href="#">Another action</a> <a
-							class="dropdown-item" href="#">Something else here</a>
-					</div></li>
+				<%-- <c:if test="${categories ne null}"> --%>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" 
+						id="dropdown01" onclick="loadCategories()"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<spring:message code="app.navbar.category.text" />
+					</a>
+					<div class="dropdown-menu" id="category-dropdown" aria-labelledby="dropdown01">
+						<!-- Will be added dynamically by JavaScript -->
+					</div>
+				</li>
+				<%-- </c:if> --%>
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="text" placeholder="Search"
