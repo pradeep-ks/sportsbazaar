@@ -11,31 +11,31 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<form:form action="${submitAction}" modelAttribute="feedback" method="post">
-					<div class="form-group">
-						<form:label path="firstName">
+					<div class="mb-3">
+						<form:label path="firstName" class="form-label">
 							<spring:message code="app.contact.form.firstName.text" />
 						</form:label>
 						<form:input path="firstName" id="firstName" class="form-control"/>
 					</div>
-					<div class="form-group">
-						<form:label path="lastName">
+					<div class="mb-3">
+						<form:label path="lastName" class="form-label">
 							<spring:message code="app.contact.form.lastName.text" />
 						</form:label>
 						<form:input path="lastName" id="lastName" class="form-control"/>
 					</div>
-					<div class="form-group">
-						<form:label path="email">
+					<div class="mb-3">
+						<form:label path="email" class="form-label">
 							<spring:message code="app.contact.form.email.text" />
 						</form:label>
 						<form:input path="email" type="email" id="email" class="form-control"/>
 					</div>
-					<div class="form-group">
-						<form:label path="feedbackMessage">
+					<div class="mb-3">
+						<form:label path="feedbackMessage" class="form-label">
 							<spring:message code="app.contact.form.feedbackMessage.text" />
 						</form:label>
 						<form:textarea path="feedbackMessage" class="form-control" id="feedbackMessage"/>
 					</div>
-					<button class="btn btn-primary" type="submit">
+					<button class="btn btn-success bg-gradient" type="submit">
 						<spring:message code="app.contact.form.submit.text" />
 					</button>
 				</form:form>

@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title><spring:message code="app.common.title" /></title>
 <!-- Bootstrap core CSS -->
-<link href="<c:url value="/webjars/bootstrap/4.6.0-1/css/bootstrap.css" />" rel="stylesheet">
+<link href="<c:url value="/webjars/bootstrap/5.0.1/css/bootstrap.css" />" rel="stylesheet">
 <!-- Favicon -->
 <link rel="favicon" href="#">
 <!-- Custom styles for this template -->
@@ -41,18 +41,19 @@ function loadCategories() {
 </script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success bg-gradient">
+		<div class="container-fluid">
 		<a class="navbar-brand" href="<c:url value="/" />">
 			<spring:message code="app.navbar.brand.text" />
 		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarsExampleDefault"
-			aria-controls="navbarsExampleDefault" aria-expanded="false"
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarCollapse"
+			aria-controls="navbarCollapse" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-			<ul class="navbar-nav mr-auto">
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 				<li class="nav-item active">
 					<a class="nav-link" href="<c:url value="/" />">
 						<spring:message code="app.navbar.home.text" />
@@ -72,19 +73,20 @@ function loadCategories() {
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" 
 						id="dropdown01" onclick="loadCategories()"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<spring:message code="app.navbar.category.text" />
 					</a>
-					<div class="dropdown-menu" id="category-dropdown" aria-labelledby="dropdown01">
+					<div class="dropdown-menu dropdown-menu-dark bg-success bg-gradient" id="category-dropdown" aria-labelledby="dropdown01">
 						<!-- Will be added dynamically by JavaScript -->
 					</div>
 				</li>
 				<%-- </c:if> --%>
 			</ul>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="text" placeholder="Search"
+			<form class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="Search"
 					aria-label="Search">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+				<button class="btn btn-outline-dark" type="submit">Search</button>
 			</form>
+		</div>
 		</div>
 	</nav>

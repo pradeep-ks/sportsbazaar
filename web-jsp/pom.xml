@@ -69,10 +69,10 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-		</dependency>
+		</dependency> -->
 		<!-- module dependencies -->
 		<dependency>
 			<groupId>com.sportsbazaar</groupId>
