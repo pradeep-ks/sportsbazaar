@@ -20,8 +20,9 @@
 		<servlet.version>4.0.1</servlet.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<logback.version>1.2.3</logback.version>
-		<bootstrap.version>4.6.0-1</bootstrap.version>
-		<jquery.version>3.6.0</jquery.version>
+		<!-- <bootstrap.version>4.6.0-1</bootstrap.version>
+		<jquery.version>3.6.0</jquery.version> -->
+		<bootstrap.version>5.0.1</bootstrap.version>
 		<jstl.version>1.2</jstl.version>
 		<jsp-api.version>2.2</jsp-api.version>
 		<javax.mail.version>1.6.2</javax.mail.version>
@@ -133,11 +134,11 @@
 				<artifactId>bootstrap</artifactId>
 				<version>${bootstrap.version}</version>
 			</dependency>
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.webjars</groupId>
 				<artifactId>jquery</artifactId>
 				<version>${jquery.version}</version>
-			</dependency>
+			</dependency> -->
 			<!-- module dependencies -->
 			<dependency>
 				<groupId>com.sportsbazaar</groupId>
