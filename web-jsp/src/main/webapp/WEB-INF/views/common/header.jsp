@@ -69,6 +69,9 @@ function loadCategories() {
 						<spring:message code="app.navbar.contact.text" />
 					</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<c:url value="/admin/inventory" />">Inventory</a>
+				</li>
 				<%-- <c:if test="${categories ne null}"> --%>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" 

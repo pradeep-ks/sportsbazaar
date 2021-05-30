@@ -85,4 +85,14 @@ public class Product extends BaseEntity {
 	public void setUnitsInStock(int unitsInStock) {
 		this.unitsInStock = unitsInStock;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Product [productName=").append(productName).append(", manufacturer=").append(manufacturer)
+				.append(", description=").append(description).append(", category=").append(category)
+				.append(", condition=").append(condition).append(", price=").append(price).append(", unitsInStock=")
+				.append(unitsInStock).append(", id=").append(id).append("]");
+		return builder.toString();
+	}
 }
