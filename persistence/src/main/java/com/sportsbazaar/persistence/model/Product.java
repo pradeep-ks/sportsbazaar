@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Product extends BaseEntity {
 
+	private static final long serialVersionUID = -3116838651013002599L;
+
 	@Column(nullable = false)
 	private String productName;
 

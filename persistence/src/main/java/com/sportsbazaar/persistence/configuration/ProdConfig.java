@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan(basePackages = "com.sportsbazaar")
 @Profile("prod")
-@PropertySource("file:///${user.home}/.sportsbazaar/application-prod.properties")
+@PropertySource("file:///${user.home}/Documents/.sportsbazaar/datasource-prod.properties")
 public class ProdConfig {
 
 }

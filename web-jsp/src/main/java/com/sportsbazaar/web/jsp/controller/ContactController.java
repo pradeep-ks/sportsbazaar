@@ -29,6 +29,7 @@ public class ContactController {
 	
 	@RequestMapping(value = "/sendFeedback", method = RequestMethod.POST)
 	public String sendFeedback(@ModelAttribute("feedback") FeedbackDTO feedbackDTO) {
+		LOGGER.info("Sending feedback....");
 		emailService.sendFeedback(feedbackDTO);
 		return "redirect:/contact";
 	}

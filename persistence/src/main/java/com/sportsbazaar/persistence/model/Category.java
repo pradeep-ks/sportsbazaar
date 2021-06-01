@@ -9,6 +9,8 @@ import javax.persistence.UniqueConstraint;
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "categoryName" }) })
 public class Category extends BaseEntity {
 
+	private static final long serialVersionUID = 1L;
+
 	@Column(nullable = false)
 	private String categoryName;
 
