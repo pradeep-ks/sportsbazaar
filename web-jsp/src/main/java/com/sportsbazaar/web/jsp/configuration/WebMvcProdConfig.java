@@ -16,7 +16,7 @@ import com.sportsbazaar.web.jsp.service.SmtpEmailService;
 
 @Configuration
 @Profile("prod")
-@PropertySource("file:///${user.home}/.sportsbazaar/application-prod.properties")
+@PropertySource("file:///${user.home}/Documents/.sportsbazaar/application-prod.properties")
 public class WebMvcProdConfig {
 
 	@Autowired

@@ -16,10 +16,8 @@ public abstract class AbstractEmailService implements EmailService {
 		message.setTo(feedbackDTO.getEmail());
 		message.setFrom(fromAddress);
 		message.setSubject("Sports Bazaar Acknowledgement");
-		message.setText("""
-				Thank you for contacting us. Your feedback is valuable to us.
-				Our representative will contact you, if necessary, for further assistance.
-				""");	// Text block works with Java 15+
+		message.setText("Thank you for contacting us. Your feedback is valuable to us. "
+				+ "Our representative will contact you, if necessary, for further assistance.");
 		
 		return message;
 	}

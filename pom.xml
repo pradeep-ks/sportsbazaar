@@ -14,7 +14,7 @@
 		<module>persistence</module>
 	</modules>
 	<properties>
-		<maven.compiler.release>16</maven.compiler.release>
+		<maven.compiler.release>11</maven.compiler.release>
 		<spring-framework.version>5.3.6</spring-framework.version>
 		<spring-data.version>2.5.0</spring-data.version>
 		<servlet.version>4.0.1</servlet.version>

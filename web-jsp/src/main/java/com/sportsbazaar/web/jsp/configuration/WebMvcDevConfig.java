@@ -10,7 +10,7 @@ import com.sportsbazaar.web.jsp.service.MockEmailService;
 
 @Configuration
 @Profile("dev")
-@PropertySource("file:///${user.home}/.sportsbazaar/application-dev.properties")
+@PropertySource("file:///${user.home}/Documents/.sportsbazaar/application-dev.properties")
 public class WebMvcDevConfig {
 
 	@Bean
