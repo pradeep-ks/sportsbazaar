@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Product extends BaseEntity {
@@ -31,6 +34,9 @@ public class Product extends BaseEntity {
 	private BigDecimal price;
 
 	private int unitsInStock;
+	
+	@Transient
+	private MultipartFile image;
 
 	public String getProductName() {
 		return productName;
@@ -86,6 +92,14 @@ public class Product extends BaseEntity {
 
 	public void setUnitsInStock(int unitsInStock) {
 		this.unitsInStock = unitsInStock;
+	}
+
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
 	}
 
 	@Override

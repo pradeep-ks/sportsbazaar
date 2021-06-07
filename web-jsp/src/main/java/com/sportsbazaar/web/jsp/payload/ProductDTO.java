@@ -1,5 +1,7 @@
 package com.sportsbazaar.web.jsp.payload;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProductDTO {
 
 	private long id;
@@ -17,6 +19,8 @@ public class ProductDTO {
 	private double price;
 	
 	private int unitsInStock;
+	
+	private MultipartFile image;
 
 	public long getId() {
 		return id;
@@ -80,5 +84,13 @@ public class ProductDTO {
 
 	public void setUnitsInStock(int unitsInStock) {
 		this.unitsInStock = unitsInStock;
+	}
+
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
 	}
 }
