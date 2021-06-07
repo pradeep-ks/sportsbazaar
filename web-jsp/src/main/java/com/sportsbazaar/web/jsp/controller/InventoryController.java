@@ -1,8 +1,13 @@
 package com.sportsbazaar.web.jsp.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +32,9 @@ public class InventoryController {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	@Value("${app.image.upload.path}")
+	private String imagePath;
+	
 	@RequestMapping("/inventory")
 	public String inventory(@RequestParam(name = "activeTab", required = false) String activeTab, Model model) {
 		var categories = this.categoryRepository.findAll();
@@ -75,6 +83,20 @@ public class InventoryController {
 		
 		this.productRepository.save(product);
 		
+		// upload image (old way)
+		byte[] buffer;
+		if (productDTO.getImage() != null) {
+			try {
+				buffer = productDTO.getImage().getBytes();
+				var filePath = imagePath + product.getId() + ".jpg";
+				var file = new File(filePath);
+				var outputStream = new BufferedOutputStream(new FileOutputStream(file));
+				outputStream.write(buffer);
+				outputStream.close();
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
 		return "redirect:/admin/inventory?activeTab=products"; 
 	}
 }

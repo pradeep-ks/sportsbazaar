@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -49,6 +50,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		var localeChangeInterceptor = new LocaleChangeInterceptor();
 		localeChangeInterceptor.setParamName("lang");
 		registry.addInterceptor(localeChangeInterceptor);
+	}
+
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver multipartResolver() {
+		var multipartResolver = new CommonsMultipartResolver();
+		return multipartResolver;
 	}
 
 }

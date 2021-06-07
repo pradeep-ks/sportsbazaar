@@ -46,7 +46,9 @@
 						<!-- product management form begins -->
 						<div class="row">
 							<div class="col-md-6 offset-md-3">
-								<form:form action="${pageContext.request.contextPath}/admin/inventory/product" modelAttribute="productDTO" method="post">
+								<form:form action="${pageContext.request.contextPath}/admin/inventory/product" 
+									modelAttribute="productDTO" method="post"
+									enctype="multipart/form-data">
 									<div class="card">
 										<div class="card-body">
 											<h5 class="card-title text-center">Add New Product</h5>
@@ -83,6 +85,10 @@
 												<div class="mb-3">
 													<form:label path="unitsInStock" class="form-label">Units in Stock</form:label>
 													<form:input path="unitsInStock" class="form-control" />
+												</div>
+												<div class="mb-3">
+													<form:label path="image" class="form-label">Select Product Image</form:label>
+													<form:input path="image" type="file" class="form-control" />
 												</div>
 												<br>
 												<div class="mb-3">
