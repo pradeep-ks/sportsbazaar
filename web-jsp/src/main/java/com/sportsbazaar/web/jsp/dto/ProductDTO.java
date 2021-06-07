@@ -1,4 +1,4 @@
-package com.sportsbazaar.web.jsp.payload;
+package com.sportsbazaar.web.jsp.dto;
 
 public class ProductDTO {
 
