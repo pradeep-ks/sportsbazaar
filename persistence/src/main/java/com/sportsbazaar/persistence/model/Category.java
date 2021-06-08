@@ -6,13 +6,15 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "categoryName" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "category_name" }) })
 public class Category extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "category_name")
 	private String categoryName;
+
+	private String description;
 
 	public String getCategoryName() {
 		return categoryName;
@@ -22,11 +24,17 @@ public class Category extends BaseEntity {
 		this.categoryName = categoryName;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Category [categoryName=").append(categoryName).append(", id=").append(id).append("]");
-		return builder.toString();
+		return "Category [categoryName=" + categoryName + ", description=" + description + "]";
 	}
 
 }

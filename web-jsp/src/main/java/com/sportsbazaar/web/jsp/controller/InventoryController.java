@@ -20,7 +20,7 @@ import com.sportsbazaar.persistence.model.Category;
 import com.sportsbazaar.persistence.model.Product;
 import com.sportsbazaar.persistence.repository.CategoryRepository;
 import com.sportsbazaar.persistence.repository.ProductRepository;
-import com.sportsbazaar.web.jsp.payload.ProductDTO;
+import com.sportsbazaar.web.jsp.dto.ProductDTO;
 
 @Controller
 @RequestMapping("/admin")
