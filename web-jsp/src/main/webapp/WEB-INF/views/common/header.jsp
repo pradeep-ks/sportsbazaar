@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
@@ -8,8 +9,9 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title><spring:message code="app.common.title" /></title>
+<title><spring:message code="app.title" /></title>
 <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <link href="<c:url value="/webjars/bootstrap/5.0.1/css/bootstrap.css" />" rel="stylesheet">
 <!-- Favicon -->
 <link rel="favicon" href="#">
@@ -29,7 +31,7 @@ function loadCategories() {
 			var elm = document.querySelector('#category-dropdown');
 			var htmlText = '';
 			for (var i = 0; i < categories.length; i++) {
-				htmlText += '<a class="dropdown-item" href="#">'+ categories[i].categoryName + '</a>';
+				htmlText += '<a class="dropdown-item" href="#">'+ categories[i] + '</a>';
 			}
 			elm.innerHTML = htmlText;
 		}
@@ -70,7 +72,9 @@ function loadCategories() {
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<c:url value="/admin/inventory" />">Inventory</a>
+					<a class="nav-link" href="<c:url value="/admin/dashboard" />">
+						<spring:message code="app.navbar.dashboard.text" />
+					</a>
 				</li>
 				<%-- <c:if test="${categories ne null}"> --%>
 				<li class="nav-item dropdown">

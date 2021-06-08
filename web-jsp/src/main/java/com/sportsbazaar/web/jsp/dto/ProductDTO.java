@@ -1,4 +1,4 @@
-package com.sportsbazaar.web.jsp.payload;
+package com.sportsbazaar.web.jsp.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,11 +86,4 @@ public class ProductDTO {
 		this.unitsInStock = unitsInStock;
 	}
 
-	public MultipartFile getImage() {
-		return image;
-	}
-
-	public void setImage(MultipartFile image) {
-		this.image = image;
-	}
 }

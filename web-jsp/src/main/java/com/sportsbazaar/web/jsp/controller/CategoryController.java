@@ -18,7 +18,7 @@ public class CategoryController {
 	@RequestMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String getCategories() {
-		var categories = this.categoryRepository.findAll();
+		var categories = this.categoryRepository.findAllCategoryNames();
 		var gson = new Gson();
 		return gson.toJson(categories);
 	}
