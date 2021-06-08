@@ -32,43 +32,43 @@
 	<div class="col-8 offset-2">
 		<c:forEach var="product" items="${productsList}">
 			<div class="d-flex align-items-center">
-			  <div class="flex-shrink-0">
-			    <img src="#" alt="#">
-			  </div>
-			  <div class="flex-grow-1 ms-3">
-			    <div class="list-group">
-					<div class="list-group-item d-flex justify-content-between align-items-start">
-						<div class="ms-2 me-auto">
-							<div class="d-flex w-100 justify-content-between">
-								<h5 class="mb-1">${product.manufacturer}&nbsp;${product.productName}</h5>
+			  	<div class="flex-shrink-0">
+			    	<img width="150" height="150" src="<c:url value="/uploads/products/${product.id}.jpg" />" alt="#">
+			  	</div>
+			  	<div class="flex-grow-1 ms-3">
+			    	<div class="list-group">
+						<div class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">${product.manufacturer}&nbsp;${product.productName}</h5>
+								</div>
+								<dl class="row mb-1">
+									<dt class="col-3">Description:</dt>
+									<dd class="col-9">${product.description}</dd>
+									<dt class="col-3">Category:</dt>
+									<dd class="col-9">${product.category.categoryName}</dd>
+									<dt class="col-3">Condition:</dt>
+									<dd class="col-9">${product.condition}</dd>
+									<dt class="col-3">Units In Stock:</dt>
+									<dd class="col-9">${product.unitsInStock}</dd>
+								</dl>
+								<small class="text-muted">
+									<strong>Price: </strong>
+									<fmt:formatNumber currencySymbol="&#8377;" type="currency" groupingUsed="true" value="${product.price}"/>
+								</small>
 							</div>
-							<dl class="row mb-1">
-								<dt class="col-3">Description:</dt>
-								<dd class="col-9">${product.description}</dd>
-								<dt class="col-3">Category:</dt>
-								<dd class="col-9">${product.category.categoryName}</dd>
-								<dt class="col-3">Condition:</dt>
-								<dd class="col-9">${product.condition}</dd>
-								<dt class="col-3">Units In Stock:</dt>
-								<dd class="col-9">${product.unitsInStock}</dd>
-							</dl>
-							<small class="text-muted">
-								<strong>Price: </strong>
-								<fmt:formatNumber currencySymbol="&#8377;" type="currency" groupingUsed="true" value="${product.price}"/>
-							</small>
+							<a href='<c:url value="/admin/inventory/products/modify"><c:param name="productId" value="${product.id}" /></c:url>' 
+								class="btn btn-outline-warning" title="Edit">
+								<i class="bi bi-pencil"></i>
+							</a>
+							&nbsp;
+							<a href='<c:url value="/admin/inventory/products/delete"><c:param name="productId" value="${product.id}" /></c:url>' 
+							class="btn btn-outline-danger" title="Delete">
+								<i class="bi bi-trash"></i>
+							</a>
 						</div>
-						<a href='<c:url value="/admin/inventory/products/modify"><c:param name="productId" value="${product.id}" /></c:url>' 
-						class="btn btn-outline-warning" title="Edit">
-							<i class="bi bi-pencil"></i>
-						</a>
-						&nbsp;
-						<a href='<c:url value="/admin/inventory/products/delete"><c:param name="productId" value="${product.id}" /></c:url>' 
-						class="btn btn-outline-danger" title="Delete">
-							<i class="bi bi-trash"></i>
-						</a>
 					</div>
-				</div>
-			  </div>
+			  	</div>
 			</div>
 		</c:forEach>
 	</div>

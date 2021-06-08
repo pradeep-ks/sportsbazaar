@@ -1,7 +1,9 @@
 <%@include file="dashboardHeader.jsp"%>
 <div class="row">
 	<div class="col-6 offset-3">
-		<form:form method="post" modelAttribute="product" action="${pageContext.request.contextPath}/admin/inventory/products/save">
+		<form:form method="post" modelAttribute="product" 
+			action="${pageContext.request.contextPath}/admin/inventory/products/save"
+			enctype="multipart/form-data">
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title text-center">
@@ -70,6 +72,10 @@
 						<div class="form-group">
 							<form:label path="unitsInStock">Units in Stock</form:label>
 							<form:input path="unitsInStock" cssClass="form-control" type="number" />
+						</div>
+						<div class="form-group">
+							<form:label path="image">Select Product Image</form:label>
+							<form:input path="image" cssClass="form-control" type="file" />
 						</div>
 						<br>
 						<div class="form-group">

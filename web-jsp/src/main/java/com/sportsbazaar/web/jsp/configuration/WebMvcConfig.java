@@ -19,6 +19,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @ComponentScan(basePackages = "com.sportsbazaar")
 public class WebMvcConfig implements WebMvcConfigurer {
 
+	private static final String IMG_LOCATION = System.getProperty("user.home") + "/Pictures/uploads/products/";
+	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		registry.jsp("/WEB-INF/views/", ".jsp");
@@ -26,6 +28,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/uploads/products/**")
+				.addResourceLocations("file:///" + IMG_LOCATION);
 		registry.addResourceHandler("/resources/**", "/webjars/**").addResourceLocations("/WEB-INF/resources/",
 				"classpath:META-INF/resources/webjars/");
 	}

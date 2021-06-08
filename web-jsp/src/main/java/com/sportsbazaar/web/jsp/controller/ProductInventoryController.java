@@ -1,6 +1,11 @@
 package com.sportsbazaar.web.jsp.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,8 @@ import com.sportsbazaar.web.jsp.dto.ResponseMessage;
 @RequestMapping("/admin/inventory/products")
 public class ProductInventoryController {
 
+	private final Path rootLocation = Paths.get(System.getProperty("user.home"), "Pictures", "uploads", "products");
+	
 	@Autowired
 	private ProductRepository productRepository;
 	
@@ -44,7 +51,7 @@ public class ProductInventoryController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("product") ProductDTO productDTO, RedirectAttributes redirectAttributes) {
+	public String saveProduct(@ModelAttribute("product") ProductDTO productDTO, RedirectAttributes redirectAttributes) throws IOException {
 		var action = "";
 		var value = this.productRepository.findById(productDTO.getId());
 		Product p;
@@ -70,7 +77,22 @@ public class ProductInventoryController {
 			redirectAttributes.addFlashAttribute("saveError", "Product category not found!");
 			return "redirect:/admin/inventory/products";
 		}
-		this.productRepository.save(p);
+		p = this.productRepository.save(p);
+		
+		// Image upload
+		var imgFile = productDTO.getImage();
+		Files.createDirectories(rootLocation);
+		try {
+			if (imgFile.isEmpty()) {
+				System.err.println("Cannot store empty image!");
+			}
+			Path destFile = this.rootLocation.resolve(Paths.get(p.getId() + ".jpg")).normalize().toAbsolutePath();
+			try (var inputStream = imgFile.getInputStream()) {
+				Files.copy(inputStream, destFile, StandardCopyOption.REPLACE_EXISTING);
+			}
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
 		redirectAttributes.addFlashAttribute("saveSuccess", "Product " + action + "!");
 		return "redirect:/admin/inventory/products";
 	}
