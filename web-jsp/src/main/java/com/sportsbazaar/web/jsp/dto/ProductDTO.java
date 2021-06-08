@@ -86,19 +86,4 @@ public class ProductDTO {
 		this.unitsInStock = unitsInStock;
 	}
 
-<<<<<<< HEAD:web-jsp/src/main/java/com/sportsbazaar/web/jsp/payload/ProductDTO.java
-	public MultipartFile getImage() {
-		return image;
-	}
-
-	public void setImage(MultipartFile image) {
-		this.image = image;
-=======
-	@Override
-	public String toString() {
-		return "ProductDTO [id=" + id + ", productName=" + productName + ", manufacturer=" + manufacturer
-				+ ", description=" + description + ", category=" + category + ", condition=" + condition + ", price="
-				+ price + ", unitsInStock=" + unitsInStock + "]";
->>>>>>> crud:web-jsp/src/main/java/com/sportsbazaar/web/jsp/dto/ProductDTO.java
-	}
 }
