@@ -81,4 +81,11 @@ public class ProductDTO {
 	public void setUnitsInStock(int unitsInStock) {
 		this.unitsInStock = unitsInStock;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductDTO [id=" + id + ", productName=" + productName + ", manufacturer=" + manufacturer
+				+ ", description=" + description + ", category=" + category + ", condition=" + condition + ", price="
+				+ price + ", unitsInStock=" + unitsInStock + "]";
+	}
 }
