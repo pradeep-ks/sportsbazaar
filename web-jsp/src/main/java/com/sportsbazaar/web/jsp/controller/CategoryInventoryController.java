@@ -1,10 +1,13 @@
 package com.sportsbazaar.web.jsp.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +44,11 @@ public class CategoryInventoryController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String createCategory(@ModelAttribute Category category, RedirectAttributes redirectAttributes) {
+	public String createCategory(@Valid @ModelAttribute Category category, BindingResult result, RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			return "admin/categoryForm";
+		}
+		
 		var msg = "";
 		var value = this.categoryRepository.findByCategoryName(category.getCategoryName());
 		if (value.isEmpty()) {

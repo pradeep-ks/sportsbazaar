@@ -47,7 +47,9 @@
 				<td>${category.description}</td>
 				<td>
 					<a href="<c:url value="/admin/inventory/category/modify/${category.id}" />" class="btn btn-outline-warning">Edit</a>
-					<a href="<c:url value="/admin/inventory/category/delete/${category.id}" />" class="btn btn-outline-danger">Delete</a>
+					<a 
+						href='<c:url value="/admin/inventory/category/delete"><c:param name="id" value="${category.id}" /></c:url>' 
+						class="btn btn-outline-danger">Delete</a>
 				</td>
 			</tr>
 			</c:forEach>

@@ -44,14 +44,17 @@
 						<div class="form-group">
 							<form:label path="productName">Name of Product</form:label>
 							<form:input path="productName" cssClass="form-control" />
+							<form:errors path="productName" cssClass="text-danger" />
 						</div>
 						<div class="form-group">
 							<form:label path="description">Description</form:label>
 							<form:textarea path="description" cssClass="form-control"/>
+							<form:errors path="description" cssClass="text-danger" />
 						</div>
 						<div class="form-group">
 							<form:label path="manufacturer">Manufacturer</form:label>
 							<form:input path="manufacturer" cssClass="form-control" />
+							<form:errors path="manufacturer" cssClass="text-danger" />
 						</div>
 						<div class="form-group">
 							<form:label path="condition">Condition</form:label>
@@ -68,10 +71,12 @@
 						<div class="form-group">
 							<form:label path="price">Price</form:label>
 							<form:input path="price" cssClass="form-control" />
+							<form:errors path="price" cssClass="text-danger" />
 						</div>
 						<div class="form-group">
 							<form:label path="unitsInStock">Units in Stock</form:label>
 							<form:input path="unitsInStock" cssClass="form-control" type="number" />
+							<form:errors path="unitsInStock" cssClass="text-danger" />
 						</div>
 						<div class="form-group">
 							<form:label path="image">Select Product Image</form:label>

@@ -43,10 +43,12 @@
 						<div class="mb-3">
 							<form:label path="categoryName" class="form-label">Category Name</form:label>
 							<form:input path="categoryName" class="form-control" />
+							<form:errors path="categoryName" cssClass="text-danger" />
 						</div>
 						<div class="mb-3">
 							<form:label path="description" class="form-label">Description</form:label>
 							<form:input path="description" class="form-control" />
+							<form:errors path="description" cssClass="text-danger" />
 						</div>
 						<br>
 						<div class="input-group">

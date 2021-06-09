@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,23 +18,29 @@ public class Product extends BaseEntity {
 
 	private static final long serialVersionUID = -3116838651013002599L;
 
+	@NotBlank(message = "Product name is required")
 	@Column(nullable = false)
 	private String productName;
 
+	@NotBlank(message = "Product manfacturer is required")
 	@Column(nullable = false)
 	private String manufacturer;
 
+	@NotBlank(message = "Product description is required")
 	private String description;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private Category category;
 
+	@NotBlank(message = "Product condition is required")
 	@Column(nullable = false)
 	private String condition;
 
+	@Min(value = 10, message = "Price must be greater than 10")
 	private BigDecimal price;
 
+	@Min(value = 0, message = "Units in stock must be 0 or greater")
 	private int unitsInStock;
 	
 	@Transient

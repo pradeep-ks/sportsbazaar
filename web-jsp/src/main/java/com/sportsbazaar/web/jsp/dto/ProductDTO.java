@@ -1,23 +1,33 @@
 package com.sportsbazaar.web.jsp.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class ProductDTO {
 
 	private long id;
 	
+	@NotBlank(message = "Name of product is required")
 	private String productName;
 	
+	@NotBlank(message = "Name of manufacturer is required")
 	private String manufacturer;
 	
+	@NotBlank(message = "Product description is required")
 	private String description;
 	
+	@NotBlank(message = "Category is required")
 	private String category;
 	
+	@NotBlank(message = "Condition is required")
 	private String condition;
 	
+	@Min(value = 10, message = "Price must be 10 or above")
 	private double price;
 	
+	@Min(value = 0, message = "Units in stock must be 0 or above")
 	private int unitsInStock;
 	
 	private MultipartFile image;

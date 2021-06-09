@@ -8,9 +8,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,20 +31,20 @@ import com.sportsbazaar.web.jsp.dto.ResponseMessage;
 public class ProductInventoryController {
 
 	private final Path rootLocation = Paths.get(System.getProperty("user.home"), "Pictures", "uploads", "products");
-	
+
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@RequestMapping
 	public String products(Model model) {
 		model.addAttribute("productsList", this.productRepository.findAll());
 		model.addAttribute("productsActive", true);
 		return "admin/productInventory";
 	}
-	
+
 	@RequestMapping("/addProduct")
 	public String addProductForm(Model model) {
 		model.addAttribute("categories", this.categoryRepository.findAllCategoryNames());
@@ -49,9 +52,14 @@ public class ProductInventoryController {
 		model.addAttribute("product", new ProductDTO());
 		return "admin/productForm";
 	}
-	
+
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("product") ProductDTO productDTO, RedirectAttributes redirectAttributes) throws IOException {
+	public String saveProduct(@Valid @ModelAttribute("product") ProductDTO productDTO, BindingResult result,
+			RedirectAttributes redirectAttributes) throws IOException {
+		if (result.hasErrors()) {
+			return "admin/productForm";
+		}
+
 		var action = "";
 		var value = this.productRepository.findById(productDTO.getId());
 		Product p;
@@ -69,7 +77,7 @@ public class ProductInventoryController {
 		p.setPrice(new BigDecimal(productDTO.getPrice()));
 		p.setUnitsInStock(productDTO.getUnitsInStock());
 		p.setCondition(productDTO.getCondition());
-		
+
 		var cat = this.categoryRepository.findByCategoryName(productDTO.getCategory());
 		if (cat.isPresent()) {
 			p.setCategory(cat.get());
@@ -78,7 +86,7 @@ public class ProductInventoryController {
 			return "redirect:/admin/inventory/products";
 		}
 		p = this.productRepository.save(p);
-		
+
 		// Image upload
 		var imgFile = productDTO.getImage();
 		Files.createDirectories(rootLocation);
@@ -96,9 +104,10 @@ public class ProductInventoryController {
 		redirectAttributes.addFlashAttribute("saveSuccess", "Product " + action + "!");
 		return "redirect:/admin/inventory/products";
 	}
-	
+
 	@RequestMapping(value = "/modify")
-	public String modifyProduct(@RequestParam("productId") long productId, Model model, RedirectAttributes redirectAttributes) {
+	public String modifyProduct(@RequestParam("productId") long productId, Model model,
+			RedirectAttributes redirectAttributes) {
 		var value = this.productRepository.findById(productId);
 		if (value.isPresent()) {
 			var productDTO = new ProductDTO();
@@ -111,7 +120,7 @@ public class ProductInventoryController {
 			productDTO.setCategory(product.getCategory().getCategoryName());
 			productDTO.setPrice(product.getPrice().doubleValue());
 			productDTO.setUnitsInStock(product.getUnitsInStock());
-			
+
 			model.addAttribute("product", productDTO);
 			model.addAttribute("categories", this.categoryRepository.findAllCategoryNames());
 			model.addAttribute("conditions", Arrays.<String>asList("New", "Used"));
@@ -122,7 +131,7 @@ public class ProductInventoryController {
 			return "redirect:/admin/inventory/products";
 		}
 	}
-	
+
 	@RequestMapping("/delete")
 	public String deleteProduct(@RequestParam("productId") long productId, RedirectAttributes attributes) {
 		this.productRepository.deleteById(productId);
