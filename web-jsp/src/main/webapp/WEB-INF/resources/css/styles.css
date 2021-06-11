@@ -18,6 +18,15 @@ body {
 	user-select: none;
 }
 
+.img-small {
+	max-width: 150px;
+	max-height: 150px;
+}
+
+dt, dd {
+	text-align: left;
+}
+
 @media ( min-width : 768px) {
 	.bd-placeholder-img-lg {
 		font-size: 3.5rem;

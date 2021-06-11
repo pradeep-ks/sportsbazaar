@@ -26,12 +26,14 @@ function loadCategories() {
 		if (this.readyState === 4 && this.status === 200) {
 			console.log(this.responseText);
 			var categories = JSON.parse(this.responseText);
-			
-			// var elm = document.getElementById('category-dropdown');
 			var elm = document.querySelector('#category-dropdown');
-			var htmlText = '';
-			for (var i = 0; i < categories.length; i++) {
-				htmlText += '<a class="dropdown-item" href="#">'+ categories[i] + '</a>';
+			var htmlText = '<a class="dropdown-item" href="<c:url value="/products" />">Browse All Products</a>';
+			
+			if (categories.length > 0) {
+				htmlText += '<hr class="dropdown-divider">';
+				for (var i = 0; i < categories.length; i++) {
+					htmlText += '<a class="dropdown-item" href="#">'+ categories[i] + '</a>';
+				}
 			}
 			elm.innerHTML = htmlText;
 		}
@@ -56,10 +58,15 @@ function loadCategories() {
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
-				<li class="nav-item active">
-					<a class="nav-link" href="<c:url value="/" />">
-						<spring:message code="app.navbar.home.text" />
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" 
+						id="dropdown01" onclick="loadCategories()"
+						data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<spring:message code="app.navbar.category.text" />
 					</a>
+					<div class="dropdown-menu dropdown-menu-dark bg-success bg-gradient" id="category-dropdown" aria-labelledby="dropdown01">
+						<!-- Will be added dynamically by JavaScript -->
+					</div>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="<c:url value="/about" />">
@@ -76,18 +83,6 @@ function loadCategories() {
 						<spring:message code="app.navbar.dashboard.text" />
 					</a>
 				</li>
-				<%-- <c:if test="${categories ne null}"> --%>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" 
-						id="dropdown01" onclick="loadCategories()"
-						data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<spring:message code="app.navbar.category.text" />
-					</a>
-					<div class="dropdown-menu dropdown-menu-dark bg-success bg-gradient" id="category-dropdown" aria-labelledby="dropdown01">
-						<!-- Will be added dynamically by JavaScript -->
-					</div>
-				</li>
-				<%-- </c:if> --%>
 			</ul>
 			<form class="d-flex">
 				<input class="form-control me-2" type="search" placeholder="Search"
