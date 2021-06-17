@@ -12,7 +12,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import com.sportsbazaar.web.jsp.service.EmailService;
-import com.sportsbazaar.web.jsp.service.SmtpEmailService;
+import com.sportsbazaar.web.jsp.service.impl.SmtpEmailService;
 
 @Configuration
 @Profile("prod")

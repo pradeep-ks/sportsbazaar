@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sportsbazaar.persistence.model.Category;
 import com.sportsbazaar.persistence.model.Product;
-import com.sportsbazaar.persistence.repository.CategoryRepository;
 import com.sportsbazaar.persistence.repository.ProductRepository;
 import com.sportsbazaar.web.jsp.dto.ProductDTO;
 import com.sportsbazaar.web.jsp.dto.ResponseMessage;
+import com.sportsbazaar.web.jsp.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin/inventory/products")
@@ -36,7 +37,7 @@ public class ProductInventoryController {
 	private ProductRepository productRepository;
 
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategoryService categoryService;
 
 	@RequestMapping
 	public String products(Model model) {
@@ -47,7 +48,7 @@ public class ProductInventoryController {
 
 	@RequestMapping("/addProduct")
 	public String addProductForm(Model model) {
-		model.addAttribute("categories", this.categoryRepository.findAllCategoryNames());
+		model.addAttribute("categories", this.categoryService.findAllCategoryNames());
 		model.addAttribute("conditions", Arrays.<String>asList("New", "Used"));
 		model.addAttribute("product", new ProductDTO());
 		return "admin/productForm";
@@ -78,13 +79,8 @@ public class ProductInventoryController {
 		p.setUnitsInStock(productDTO.getUnitsInStock());
 		p.setCondition(productDTO.getCondition());
 
-		var cat = this.categoryRepository.findByCategoryName(productDTO.getCategory());
-		if (cat.isPresent()) {
-			p.setCategory(cat.get());
-		} else {
-			redirectAttributes.addFlashAttribute("saveError", "Product category not found!");
-			return "redirect:/admin/inventory/products";
-		}
+		Category cat = this.categoryService.findByCategoryName(productDTO.getCategory());
+		p.setCategory(cat);
 		p = this.productRepository.save(p);
 
 		// Image upload
@@ -122,7 +118,7 @@ public class ProductInventoryController {
 			productDTO.setUnitsInStock(product.getUnitsInStock());
 
 			model.addAttribute("product", productDTO);
-			model.addAttribute("categories", this.categoryRepository.findAllCategoryNames());
+			model.addAttribute("categories", this.categoryService.findAllCategoryNames());
 			model.addAttribute("conditions", Arrays.<String>asList("New", "Used"));
 			return "admin/productForm";
 		} else {

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sportsbazaar.persistence.model.Category;
-import com.sportsbazaar.persistence.repository.CategoryRepository;
 import com.sportsbazaar.web.jsp.dto.ResponseMessage;
+import com.sportsbazaar.web.jsp.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin/inventory/category")
@@ -25,69 +25,56 @@ public class CategoryInventoryController {
 
 	private static final Logger log = LoggerFactory.getLogger(CategoryInventoryController.class);
 
-	private static final String REDIRECT_URL = "/admin/inventory/category";
+	public static final String VIEW_NAME_CATEGORY_INVENTORY = "admin/categoryInventory";
+	
+	public static final String VIEW_NAME_CATEGORY_FORM = "admin/categoryForm";
+	
+	private static final String REDIRECT_URL_CATEGORY = "redirect:/admin/inventory/category";
 
 	@Autowired
-	private CategoryRepository categoryRepository;
-
+	private CategoryService categoryService;
+	
 	@RequestMapping
 	public String categories(Model model) {
-		model.addAttribute("categoryList", this.categoryRepository.findAll());
+		model.addAttribute("categoryList", this.categoryService.findAll());
 		model.addAttribute("categoryActive", true);
-		return "admin/categoryInventory";
+		return VIEW_NAME_CATEGORY_INVENTORY;
 	}
 
 	@RequestMapping("/addCategory")
 	public String addCategory(Model model) {
 		model.addAttribute("category", new Category());
-		return "admin/categoryForm";
+		return VIEW_NAME_CATEGORY_FORM;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String createCategory(@Valid @ModelAttribute Category category, BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
-			return "admin/categoryForm";
+			return VIEW_NAME_CATEGORY_FORM;
 		}
 		
-		var msg = "";
-		var value = this.categoryRepository.findByCategoryName(category.getCategoryName());
-		if (value.isEmpty()) {
-			this.categoryRepository.saveAndFlush(category);
-			msg = "New category created successfully!";
-		} else {
-			var cat = value.get();
-			cat.setDescription(category.getDescription());
-			this.categoryRepository.saveAndFlush(cat);
-			msg = "Category updated successfully!";
-		}
-		ResponseMessage responseMsg = new ResponseMessage(msg, true);
+		this.categoryService.save(category);
+		ResponseMessage responseMsg = new ResponseMessage("Category saved!", true);
 		redirectAttributes.addFlashAttribute("message", responseMsg);
-		return "redirect:/admin/inventory/category";
+		return REDIRECT_URL_CATEGORY;
 	}
 
 	@RequestMapping(value = "/modify/{id}")
-	public String modifyCategory(@PathVariable("id") long id, Model model, RedirectAttributes redirectAttributes) {
-		var value = this.categoryRepository.findById(id);
-		if (value.isPresent()) {
-			var category = value.get();
-			model.addAttribute("category", category);
-			return "admin/categoryForm";
-		} else {
-			redirectAttributes.addFlashAttribute("message",
-					new ResponseMessage("Category with id : " + id + " does not exists!", false));
-			return "redirect:" + REDIRECT_URL;
-		}
+	public String modifyCategory(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+		Category category = this.categoryService.findById(id);
+		model.addAttribute("category", category);
+		return REDIRECT_URL_CATEGORY;
 	}
 
 	@RequestMapping("/delete")
 	public String deleteCategory(@RequestParam("id") long id, RedirectAttributes redirectAttributes) {
 		log.debug("Deleting category with id: {}", id);
-		this.categoryRepository.deleteById(id);
+		this.categoryService.deleteById(id);
 		var message = new ResponseMessage();
 		message.setMessage(String.format("Category deleted successfully!", id));
 		message.setSuccess(true);
 		redirectAttributes.addFlashAttribute("message", message);
 		log.info("Category with id: {}, deleted", id);
-		return "redirect:" + REDIRECT_URL;
+		return REDIRECT_URL_CATEGORY;
 	}
 }

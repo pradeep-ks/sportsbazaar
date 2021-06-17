@@ -5,10 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sportsbazaar.persistence.repository.CategoryRepository;
 import com.sportsbazaar.persistence.repository.ProductRepository;
 import com.sportsbazaar.web.jsp.dto.CategorySummary;
 import com.sportsbazaar.web.jsp.dto.ProductSummary;
+import com.sportsbazaar.web.jsp.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin/dashboard")
@@ -18,7 +18,7 @@ public class DashboardController {
 	private ProductRepository productRepository;
 	
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategoryService categoryService;
 	
 	@RequestMapping
 	public String dashboard(Model model) {
@@ -32,7 +32,7 @@ public class DashboardController {
 		productSummary.setProductsOutOfStock(productsOutOfStock);
 		productSummary.setTotalProducts(totalProducts);
 		
-		var totalCategories = this.categoryRepository.count();
+		var totalCategories = this.categoryService.count();
 		categorySummary.setTotalCategories(totalCategories);
 		
 		model.addAttribute("productSummary", productSummary);

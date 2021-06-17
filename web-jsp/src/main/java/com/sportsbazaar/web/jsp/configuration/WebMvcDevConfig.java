@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 
 import com.sportsbazaar.web.jsp.service.EmailService;
-import com.sportsbazaar.web.jsp.service.MockEmailService;
+import com.sportsbazaar.web.jsp.service.impl.MockEmailService;
 
 @Configuration
 @Profile("dev")
