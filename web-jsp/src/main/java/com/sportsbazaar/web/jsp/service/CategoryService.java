@@ -2,6 +2,8 @@ package com.sportsbazaar.web.jsp.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.sportsbazaar.persistence.model.Category;
 
 public interface CategoryService {
@@ -19,5 +21,7 @@ public interface CategoryService {
 	Long count();
 
 	Category findByCategoryName(String category);
+	
+	Page<Category> findPaginated(int page, int size);
 	
 }

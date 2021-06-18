@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,18 +27,24 @@ public class CategoryInventoryController {
 	private static final Logger log = LoggerFactory.getLogger(CategoryInventoryController.class);
 
 	public static final String VIEW_NAME_CATEGORY_INVENTORY = "admin/categoryInventory";
-	
+
 	public static final String VIEW_NAME_CATEGORY_FORM = "admin/categoryForm";
-	
+
 	private static final String REDIRECT_URL_CATEGORY = "redirect:/admin/inventory/category";
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@RequestMapping
-	public String categories(Model model) {
-		model.addAttribute("categoryList", this.categoryService.findAll());
+	public String categories(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") int size, Model model) {
+		Page<Category> pagedCategories = this.categoryService.findPaginated(page, size);
+		model.addAttribute("categoryList", pagedCategories.getContent());
 		model.addAttribute("categoryActive", true);
+		// For pagination
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", pagedCategories.getTotalPages());
+		model.addAttribute("totalElements", pagedCategories.getTotalElements());
 		return VIEW_NAME_CATEGORY_INVENTORY;
 	}
 
@@ -48,11 +55,12 @@ public class CategoryInventoryController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String createCategory(@Valid @ModelAttribute Category category, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String createCategory(@Valid @ModelAttribute Category category, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return VIEW_NAME_CATEGORY_FORM;
 		}
-		
+
 		this.categoryService.save(category);
 		ResponseMessage responseMsg = new ResponseMessage("Category saved!", true);
 		redirectAttributes.addFlashAttribute("message", responseMsg);

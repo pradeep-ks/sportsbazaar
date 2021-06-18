@@ -40,7 +40,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${ categoryList }" var="category">
+			<c:forEach items="${categoryList}" var="category">
 			<tr>
 				<td>${category.id}</td>
 				<td>${category.categoryName}</td>
@@ -55,7 +55,35 @@
 			</c:forEach>
 			</tbody>
 		</table>
+		<c:if test="${totalPages gt 1}">
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item  <c:if test="${currentPage eq 1}">disabled</c:if>">
+			      <a class="page-link" href='<c:url value="/admin/inventory/category"><c:param name="page" value="${currentPage - 1}" /></c:url>' tabindex="-1" aria-disabled="true">Previous</a>
+			    </li>
+			    <c:forEach var="index" begin="1" end="${totalPages}" step="1">
+			    	<li class="page-item">
+			    		<a class="page-link" href='<c:url value="/admin/inventory/category"><c:param name="page" value="${index}" /></c:url>'>
+			    			${index}
+			    		</a>
+			    	</li>
+			    </c:forEach>
+			    <li class="page-item <c:if test="${currentPage eq totalPages}">disabled</c:if>">
+			      <a class="page-link" href='<c:url value="/admin/inventory/category"><c:param name="page" value="${currentPage + 1}" /></c:url>'>Next</a>
+			    </li>
+			  </ul>
+			</nav>
+		</c:if>
 	</div>
 </div>
 </c:if>
 <%@include file="dashboardFooter.jsp"%>
+
+
+
+
+
+
+
+
+
