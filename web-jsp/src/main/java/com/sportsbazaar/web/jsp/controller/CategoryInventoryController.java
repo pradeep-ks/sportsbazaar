@@ -71,7 +71,7 @@ public class CategoryInventoryController {
 	public String modifyCategory(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
 		Category category = this.categoryService.findById(id);
 		model.addAttribute("category", category);
-		return REDIRECT_URL_CATEGORY;
+		return VIEW_NAME_CATEGORY_FORM;
 	}
 
 	@RequestMapping("/delete")

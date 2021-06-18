@@ -9,6 +9,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	private CategoryService categoryService;
 
 	@Override
+	@Transactional
 	public Product save(ProductDTO productDTO) {
 		var value = this.productRepository.findById(productDTO.getId());
 		Product p;
@@ -85,6 +89,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(Long id) {
 		var product = findById(id);
 		this.productRepository.delete(product);
@@ -98,6 +103,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Long countByUnitsInStockGreaterThan(int value) {
 		return this.productRepository.countByUnitsInStockGreaterThan(value);
+	}
+
+	@Override
+	public Page<Product> findPaginated(int page, int size) {
+		Pageable pageable = PageRequest.of(page - 1, size);
+		return this.productRepository.findAll(pageable);
 	}
 
 }

@@ -21,4 +21,18 @@ public class ProductUtil {
 		product.setCategory(category);
 		return product;
 	}
+	
+	public static ProductDTO entityToDTO(Product product) {
+		var dto = new ProductDTO();
+		dto.setId(product.getId());
+		dto.setProductName(product.getProductName());
+		dto.setManufacturer(product.getManufacturer());
+		dto.setDescription(product.getDescription());
+		dto.setCategory(product.getCategory().getCategoryName());
+		dto.setCondition(product.getCondition());
+		dto.setPrice(product.getPrice().doubleValue());
+		dto.setUnitsInStock(product.getUnitsInStock());
+		dto.setImage(product.getImage());
+		return dto;
+	}
 }
