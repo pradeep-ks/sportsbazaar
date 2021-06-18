@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional
 	public Category save(Category category) {
-		Optional<Category> value = this.categoryRepository.findById(category.getId());
+		Optional<Category> value = this.categoryRepository.findByCategoryName(category.getCategoryName());
 		if (value.isPresent()) {
 			Category cat = value.get();
 			cat.setCategoryName(category.getCategoryName());
