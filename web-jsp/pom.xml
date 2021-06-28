@@ -23,6 +23,15 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
+		<!-- Spring security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
 		<!-- Java EE dependencies -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -69,10 +78,8 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.webjars</groupId> <artifactId>jquery</artifactId> 
+			</dependency> -->
 		<!-- module dependencies -->
 		<dependency>
 			<groupId>com.sportsbazaar</groupId>
