@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -78,17 +79,45 @@ function loadCategories() {
 						<spring:message code="app.navbar.contact.text" />
 					</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<c:url value="/admin/dashboard" />">
-						<spring:message code="app.navbar.dashboard.text" />
-					</a>
-				</li>
 			</ul>
 			<form class="d-flex">
 				<input class="form-control me-2" type="search" placeholder="Search"
 					aria-label="Search">
 				<button class="btn btn-outline-dark" type="submit">Search</button>
 			</form>
+			<ul class="navbar-nav">
+				<security:authorize access="hasRole('ADMIN')">
+					<li class="nav-item">
+						<a class="nav-link" href="<c:url value="/admin/dashboard" />">
+							<spring:message code="app.navbar.dashboard.text" />
+						</a>
+					</li>
+				</security:authorize>
+				<security:authorize access="hasAnyRole('ADMIN', 'CUSTOMER')">
+					<li class="nav-item">
+						<a class="nav-link" style="cursor: pointer;">
+							<i class="bi bi-person-circle"></i>
+							<security:authentication property="principal.username"/>
+						</a>
+					</li>
+				</security:authorize>
+				<security:authorize access="isAnonymous()">
+					<li class="nav-item">
+						<a class="nav-link" href="<c:url value="/login" />">Login</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<c:url value="/register" />">Register</a>
+					</li>
+				</security:authorize>
+				<security:authorize access="hasAnyRole('ADMIN', 'CUSTOMER')">
+				<li class="nav-item">
+					<form action="<c:url value="/logout" />">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+						<input type="submit" value="Logout" class="nav-link btn btn-outline">
+					</form>
+				</li>
+				</security:authorize>
+			</ul>
 		</div>
 		</div>
 	</nav>
