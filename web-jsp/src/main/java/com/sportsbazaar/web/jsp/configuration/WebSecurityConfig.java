@@ -20,11 +20,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String SALT = "Sp0rT$B@zaAr";
 
     public static final String[] PUBLIC_MATCHERS = { "/", "/about", "/contact", "/**/*.css", "/**/*.js", "/**/*.jpg",
-	    "/**/*.png", "/**/*.svg", "/**/*.gif", "/categories", "/products", "/productDetails" };
+	    "/**/*.png", "/**/*.svg", "/**/*.gif", "/categories", "/products", "/productDetails", "/login",
+	    "/register" };
 
     @Autowired
     private UserDetailsService userDetailsService;
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
 	return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()));
@@ -43,8 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-	http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll()
-		.antMatchers("/admin/**/*").hasRole("ADMIN").and().formLogin();
+	http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().antMatchers("/admin/**/*").hasRole("ADMIN")
+		.and().formLogin().loginPage("/login").defaultSuccessUrl("/");
     }
 
 }

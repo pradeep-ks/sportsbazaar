@@ -111,7 +111,7 @@ function loadCategories() {
 				</security:authorize>
 				<security:authorize access="hasAnyRole('ADMIN', 'CUSTOMER')">
 				<li class="nav-item">
-					<form action="<c:url value="/logout" />">
+					<form method="POST" action="<c:url value="/logout" />">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 						<input type="submit" value="Logout" class="nav-link btn btn-outline">
 					</form>
