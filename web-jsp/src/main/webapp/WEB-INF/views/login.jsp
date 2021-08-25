@@ -29,7 +29,10 @@
 					<input type="password" name="password" id="password" class="form-control" required>
 				</div>
 				<br>
-				<input type="submit" class="btn btn-primary" value="Login">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<input type="submit" class="btn btn-primary" value="Login">
+					<a href="<c:url value="/forgotPassword" />" class="btn btn-link">Forgot Password?</a>
+				</div>
 			</form:form>
 		</div>
 	</div>
