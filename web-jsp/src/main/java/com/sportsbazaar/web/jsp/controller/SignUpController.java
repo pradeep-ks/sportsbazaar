@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sportsbazaar.persistence.model.User;
+import com.sportsbazaar.web.jsp.domain.UserPrincipal;
 import com.sportsbazaar.web.jsp.dto.SignUpDTO;
 import com.sportsbazaar.web.jsp.service.UserService;
 
@@ -46,7 +47,8 @@ public class SignUpController {
 
 	User newUser = this.userService.save(payload);
 	// Auto-login upon successful registration
-	Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null);
+	UserPrincipal userPrincipal = UserPrincipal.mapUserToUserDetails(newUser);
+	Authentication authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
 	SecurityContextHolder.getContext().setAuthentication(authentication);
 	return (hasConflict ? "register" : "redirect:/");
     }

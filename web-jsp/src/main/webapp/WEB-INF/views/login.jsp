@@ -8,6 +8,15 @@
 			</p>
 		</div>
 	</div>
+	<c:if test="${param.logout ne null}">
+		<div class="row">
+			<div class="col-6 offset-3">
+				<div class="alert alert-success">
+					You logged out successfully!
+				</div>
+			</div>
+		</div>
+	</c:if>
 	<div class="row">
 		<div class="col-6 offset-3">
 			<form:form method="post" action="${pageContext.request.contextPath}/login">
