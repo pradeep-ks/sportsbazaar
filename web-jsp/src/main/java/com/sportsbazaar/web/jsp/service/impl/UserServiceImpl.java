@@ -53,4 +53,10 @@ public class UserServiceImpl implements UserService {
 	return this.userRepository.existsByEmail(email);
     }
 
+    @Override
+    @Transactional
+    public void updatePassword(long userId, String password) {
+	this.userRepository.updatePassword(userId, password);
+    }
+
 }

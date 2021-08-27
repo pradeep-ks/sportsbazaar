@@ -33,7 +33,7 @@ public class PasswordResetToken extends BaseEntity {
     }
 
     public PasswordResetToken(String token, User user, LocalDateTime tokenCreationTime, int tokenExpiryInMinutes) {
-	if (token == null || user == null || tokenExpiry == null) {
+	if (token == null || user == null || tokenCreationTime == null) {
 	    throw new IllegalArgumentException("The user, token and token expiry time cannot be null");
 	}
 	if (tokenExpiryInMinutes == 0) {

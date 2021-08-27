@@ -11,4 +11,6 @@ public interface UserService {
     
     boolean existsByEmail(String email);
     
+    void updatePassword(long userId, String password);
+    
 }
