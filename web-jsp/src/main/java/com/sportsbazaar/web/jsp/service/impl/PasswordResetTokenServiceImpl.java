@@ -39,7 +39,7 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
 	    System.out.println("FOUND User with email = " + email);
 	    User user = optional.get();
 	    String token = UUID.randomUUID().toString();
-	    resetToken = new PasswordResetToken(token, user, LocalDateTime.now(Clock.systemUTC()), 0);
+	    resetToken = new PasswordResetToken(token, user, LocalDateTime.now(Clock.systemUTC()), 3);
 	    resetToken = this.passwordResetTokenRepository.saveAndFlush(resetToken);
 	} else {
 	    System.err.println("Could not find user with email = " + email);

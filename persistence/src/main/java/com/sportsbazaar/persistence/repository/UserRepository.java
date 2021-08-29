@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sportsbazaar.persistence.model.User;
 
 @Repository
-@Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
@@ -20,7 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByUsername(String username);
     
     boolean existsByEmail(String email);
-    
+
+    @Transactional
     @Modifying
     @Query("UPDATE User u SET u.password = :password WHERE u.id = :userId")
     void updatePassword(@Param("userId") Long userId, @Param("password") String password);
