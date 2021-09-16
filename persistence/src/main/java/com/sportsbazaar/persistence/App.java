@@ -8,7 +8,7 @@ import com.sportsbazaar.persistence.configuration.AppContextConfig;
 public class App {
 	public static void main(String[] args) {
 		var context = new AnnotationConfigApplicationContext();
-		context.getEnvironment().setActiveProfiles("prod");
+		context.getEnvironment().setActiveProfiles("dev");
 		context.register(AppContextConfig.class);
 		context.refresh();
 		// following code is for testing purpose only....

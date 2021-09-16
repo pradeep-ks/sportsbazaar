@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sportsbazaar.persistence.enums.RoleName;
+import com.sportsbazaar.persistence.model.Cart;
 import com.sportsbazaar.persistence.model.Role;
 import com.sportsbazaar.persistence.model.User;
 import com.sportsbazaar.persistence.repository.RoleRepository;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @Override
     @Transactional
     public User save(SignUpDTO payload) {
@@ -40,6 +41,10 @@ public class UserServiceImpl implements UserService {
 		.orElseThrow(() -> new RuntimeException("Could not set user role!"));
 	user.setRoles(Collections.singleton(role));
 
+	Cart cart = new Cart();
+	cart.setUser(user);
+	user.setCart(cart);
+	
 	return this.userRepository.saveAndFlush(user);
     }
 
@@ -58,6 +63,13 @@ public class UserServiceImpl implements UserService {
     public void updatePassword(long userId, String password) {
 	password = this.passwordEncoder.encode(password);
 	this.userRepository.updatePassword(userId, password);
+    }
+
+    @Override
+    public User findByUsername(String name) {
+	User user = this.userRepository.findByUsername(name)
+		.orElseThrow(() -> new RuntimeException("User not found with username = " + name));
+	return user;
     }
 
 }

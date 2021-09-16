@@ -50,7 +50,7 @@
 									<i class="bi bi-info-circle"></i>
 								</a>
 								&nbsp;
-								<a href='<c:url value="/addToCart"><c:param name="productId" value="${product.id}" /></c:url>' 
+								<a onclick="addToCart(${product.id});" style="cursor: pointer;"
 								class="btn btn-outline-success" title="Add To Cart">
 									<i class="bi bi-cart"></i>
 								</a>

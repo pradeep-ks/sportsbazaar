@@ -18,9 +18,14 @@
 <link rel="favicon" href="#">
 <!-- Custom styles for this template -->
 <link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
-<script>
+<script src="<c:url value="/webjars/angularjs/1.8.2/angular.js" />"></script>
+<script src="<c:url value="/resources/js/cart.module.js"/>"></script>
+<script src="<c:url value="/resources/js/cart.service.js"/>"></script>
+<script src="<c:url value="/resources/js/cart.controller.js"/>"></script>
+<script src="<c:url value="/resources/js/script.js"/>"></script>
+<script type="text/javascript">
 function loadCategories() {
-	var http = new XMLHttpRequest();
+	let http = new XMLHttpRequest();
 	var apiUrl = '/web-jsp/categories';
 	
 	http.onreadystatechange = function () {
@@ -98,6 +103,12 @@ function loadCategories() {
 						<a class="nav-link" style="cursor: pointer;">
 							<i class="bi bi-person-circle"></i>
 							<security:authentication property="principal.username"/>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<c:url value="/showCart" />" style="cursor: pointer;">
+							<i class="bi bi-cart"></i>
+							My Cart
 						</a>
 					</li>
 				</security:authorize>

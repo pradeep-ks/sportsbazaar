@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 	http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().antMatchers("/admin/**/*").hasRole("ADMIN")
+	.antMatchers("/addToCart").hasAnyRole("ADMIN", "CUSTOMER")
 		.and().formLogin().loginPage("/login").defaultSuccessUrl("/");
     }
 
