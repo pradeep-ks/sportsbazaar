@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -31,6 +33,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()));
     }
 
+    @Autowired
+    public CsrfTokenRepository csrfTokenRepository() {
+	var repository = new HttpSessionCsrfTokenRepository();
+	repository.setParameterName("_csrf");
+	return repository;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
@@ -44,9 +53,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-	http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().antMatchers("/admin/**/*").hasRole("ADMIN")
-	.antMatchers("/addToCart").hasAnyRole("ADMIN", "CUSTOMER")
-		.and().formLogin().loginPage("/login").defaultSuccessUrl("/");
+	http.csrf().csrfTokenRepository(csrfTokenRepository()).and().authorizeRequests().antMatchers(PUBLIC_MATCHERS)
+		.permitAll().antMatchers("/admin/**/*").hasRole("ADMIN").antMatchers("/addToCart")
+		.hasAnyRole("ADMIN", "CUSTOMER").and().formLogin().loginPage("/login").defaultSuccessUrl("/");
     }
 
 }

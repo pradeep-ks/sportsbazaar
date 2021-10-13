@@ -15,4 +15,5 @@ public interface UserService {
 
     User findByUsername(String name);
     
+    User update(User user);
 }

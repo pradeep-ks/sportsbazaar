@@ -40,6 +40,10 @@ public class User extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shipping_address_id")
+    private ShippingAddress shippingAddress;
 
     public String getEmail() {
 	return email;
@@ -87,6 +91,14 @@ public class User extends BaseEntity {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public ShippingAddress getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(ShippingAddress shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
     @Override

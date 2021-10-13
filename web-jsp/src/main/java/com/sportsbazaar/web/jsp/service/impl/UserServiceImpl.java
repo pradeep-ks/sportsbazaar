@@ -10,13 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sportsbazaar.persistence.enums.RoleName;
 import com.sportsbazaar.persistence.model.Cart;
 import com.sportsbazaar.persistence.model.Role;
+import com.sportsbazaar.persistence.model.ShippingAddress;
 import com.sportsbazaar.persistence.model.User;
 import com.sportsbazaar.persistence.repository.RoleRepository;
 import com.sportsbazaar.persistence.repository.UserRepository;
 import com.sportsbazaar.web.jsp.dto.SignUpDTO;
 import com.sportsbazaar.web.jsp.service.UserService;
 
-@Service
+@Service("userService")
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
@@ -45,6 +46,10 @@ public class UserServiceImpl implements UserService {
 	cart.setUser(user);
 	user.setCart(cart);
 	
+	ShippingAddress address = new ShippingAddress();
+	user.setShippingAddress(address);
+	address.setUser(user);
+	
 	return this.userRepository.saveAndFlush(user);
     }
 
@@ -70,6 +75,11 @@ public class UserServiceImpl implements UserService {
 	User user = this.userRepository.findByUsername(name)
 		.orElseThrow(() -> new RuntimeException("User not found with username = " + name));
 	return user;
+    }
+
+    @Override
+    public User update(User user) {
+	return this.userRepository.saveAndFlush(user);
     }
 
 }

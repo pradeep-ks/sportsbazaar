@@ -9,7 +9,7 @@ import com.sportsbazaar.persistence.model.CartItem;
 import com.sportsbazaar.persistence.repository.CartItemRepository;
 import com.sportsbazaar.web.jsp.service.CartItemService;
 
-@Service
+@Service("cartItemService")
 @Transactional(readOnly = true)
 public class CartItemServiceImpl implements CartItemService {
 

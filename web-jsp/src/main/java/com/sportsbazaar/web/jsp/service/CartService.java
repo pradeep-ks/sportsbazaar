@@ -11,4 +11,7 @@ public interface CartService {
     boolean addToCart(Long productId, Principal principal);
 
     void emptyCart(Long cartId);
+
+    Cart findById(Long cartId);
+
 }

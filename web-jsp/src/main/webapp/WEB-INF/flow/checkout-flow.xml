@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+	<var name="userOrder"
+		class="com.sportsbazaar.persistence.model.UserOrder" />
+	<action-state id="processUserOrder">
+		<evaluate
+			expression="userOrderService.findById(requestParameters.orderId)"
+			result="userOrder" />
+		<transition to="shippingAddress" />
+	</action-state>
+	<view-state id="shippingAddress" view="shippingAddress.jsp"
+		model="userOrder">
+		<transition on="submitShippingAddress"
+			to="updateShippingAddress" />
+	</view-state>
+	<action-state id="updateShippingAddress">
+		<evaluate expression="userService.update(userOrder.user)" />
+		<transition to="orderSummary" />
+	</action-state>
+	<view-state id="orderSummary" view="orderSummary.jsp">
+		<transition on="submitOrderSummary" to="clearCart" />
+	</view-state>
+	<action-state id="clearCart">
+		<evaluate
+			expression="cartItemService.deleteAllByCart(userOrder.cart)" />
+		<transition to="orderConfirmed" />
+	</action-state>
+	<view-state id="orderConfirmed" view="thankYou.jsp">
+		<transition on="continueShopping" to="home" />
+	</view-state>
+	<end-state id="home" view="../views/index.jsp" />
+</flow>

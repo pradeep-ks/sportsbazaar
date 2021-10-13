@@ -39,5 +39,10 @@ public class Cart extends BaseEntity {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+	return String.format("Cart [id=%s]", id);
+    }
     
 }

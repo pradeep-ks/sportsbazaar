@@ -4,4 +4,9 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 
 public class WebSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
 
+//    @Override
+//    protected void beforeSpringSecurityFilterChain(ServletContext servletContext) {
+//	insertFilters(servletContext, new MultipartFilter());
+//    }
+
 }

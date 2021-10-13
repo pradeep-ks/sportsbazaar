@@ -13,8 +13,8 @@ import com.sportsbazaar.web.jsp.service.impl.MockEmailService;
 @PropertySource("file:///${user.home}/Documents/.sportsbazaar/application-dev.properties")
 public class WebMvcDevConfig {
 
-	@Bean
-	public EmailService emailService() {
-		return new MockEmailService();
-	}
+    @Bean
+    public EmailService emailService() {
+	return new MockEmailService();
+    }
 }
