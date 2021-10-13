@@ -22,6 +22,11 @@
 	${message.message}
 </div>
 </c:if>
+<c:if test="${ error ne null}">
+<div class="alert alert-danger rounded text-center">
+	${error}
+</div>
+</c:if>
 <c:if test="${ productsList eq null or empty productsList }">
 <div class="alert alert-info rounded">
 	Currently, there are no products in the inventory. Use the link above to add products to the inventory!
@@ -29,48 +34,71 @@
 </c:if>
 <c:if test="${ productsList ne null and not empty productsList }">
 <div class="row">
-	<div class="col-8 offset-2">
-		<c:forEach var="product" items="${productsList}">
-			<div class="d-flex align-items-center">
-			  <div class="flex-shrink-0">
-			    <img src="#" alt="#">
-			  </div>
-			  <div class="flex-grow-1 ms-3">
-			    <div class="list-group">
-					<div class="list-group-item d-flex justify-content-between align-items-start">
-						<div class="ms-2 me-auto">
-							<div class="d-flex w-100 justify-content-between">
-								<h5 class="mb-1">${product.manufacturer}&nbsp;${product.productName}</h5>
-							</div>
-							<dl class="row mb-1">
-								<dt class="col-3">Description:</dt>
-								<dd class="col-9">${product.description}</dd>
-								<dt class="col-3">Category:</dt>
-								<dd class="col-9">${product.category.categoryName}</dd>
-								<dt class="col-3">Condition:</dt>
-								<dd class="col-9">${product.condition}</dd>
-								<dt class="col-3">Units In Stock:</dt>
-								<dd class="col-9">${product.unitsInStock}</dd>
-							</dl>
-							<small class="text-muted">
-								<strong>Price: </strong>
-								<fmt:formatNumber currencySymbol="&#8377;" type="currency" groupingUsed="true" value="${product.price}"/>
-							</small>
-						</div>
-						<a href='<c:url value="/admin/inventory/products/modify"><c:param name="productId" value="${product.id}" /></c:url>' 
-						class="btn btn-outline-warning" title="Edit">
-							<i class="bi bi-pencil"></i>
-						</a>
-						&nbsp;
-						<a href='<c:url value="/admin/inventory/products/delete"><c:param name="productId" value="${product.id}" /></c:url>' 
-						class="btn btn-outline-danger" title="Delete">
-							<i class="bi bi-trash"></i>
-						</a>
-					</div>
-				</div>
-			  </div>
-			</div>
-		</c:forEach>
+	<div class="col-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th class="align-middle">Image</th>
+					<th class="align-middle">Name</th>
+					<th class="align-middle">Manufacturer</th>
+					<th class="align-middle">Description</th>
+					<th class="align-middle">Condition</th>
+					<th class="align-middle">Category</th>
+					<th class="align-middle">Price</th>
+					<th class="align-middle">Stock</th>
+					<th colspan="2" class="align-middle">Action(s)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="product" items="${productsList}">
+					<tr>
+						<td class="align-middle">
+							<img width="90" height="90" src="<c:url value="/uploads/products/${product.id}.jpg" />" alt="#">
+						</td>
+						<td class="align-middle">${product.productName}</td>
+						<td class="align-middle">${product.manufacturer}</td>
+						<td class="align-middle">${product.description}</td>
+						<td class="align-middle">${product.condition}</td>
+						<td class="align-middle">${product.category.categoryName}</td>
+						<td class="align-middle">
+							<fmt:formatNumber currencySymbol="&#8377;" type="currency" groupingUsed="true" value="${product.price}"/>
+						</td>
+						<td class="align-middle">${product.unitsInStock}</td>
+						<td class="align-middle">
+							<a href='<c:url value="/admin/inventory/products/modify"><c:param name="productId" value="${product.id}" /></c:url>' 
+								class="btn btn-outline-warning" title="Edit">
+								<i class="bi bi-pencil"></i>
+							</a>
+						</td>
+						<td class="align-middle">
+							<a href='<c:url value="/admin/inventory/products/delete"><c:param name="productId" value="${product.id}" /></c:url>' 
+							class="btn btn-outline-danger" title="Delete">
+								<i class="bi bi-trash"></i>
+							</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<c:if test="${totalPages gt 1}">
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item  <c:if test="${currentPage eq 1}">disabled</c:if>">
+			      <a class="page-link" href='<c:url value="/admin/inventory/products"><c:param name="page" value="${currentPage - 1}" /></c:url>' tabindex="-1" aria-disabled="true">Previous</a>
+			    </li>
+			    <c:forEach var="index" begin="1" end="${totalPages}" step="1">
+			    	<li class="page-item">
+			    		<a class="page-link" href='<c:url value="/admin/inventory/products"><c:param name="page" value="${index}" /></c:url>'>
+			    			${index}
+			    		</a>
+			    	</li>
+			    </c:forEach>
+			    <li class="page-item <c:if test="${currentPage eq totalPages}">disabled</c:if>">
+			      <a class="page-link" href='<c:url value="/admin/inventory/products"><c:param name="page" value="${currentPage + 1}" /></c:url>'>Next</a>
+			    </li>
+			  </ul>
+			</nav>
+		</c:if>
 	</div>
 </div>
 </c:if>

@@ -40,20 +40,50 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${ categoryList }" var="category">
+			<c:forEach items="${categoryList}" var="category">
 			<tr>
 				<td>${category.id}</td>
 				<td>${category.categoryName}</td>
 				<td>${category.description}</td>
 				<td>
 					<a href="<c:url value="/admin/inventory/category/modify/${category.id}" />" class="btn btn-outline-warning">Edit</a>
-					<a href="<c:url value="/admin/inventory/category/delete/${category.id}" />" class="btn btn-outline-danger">Delete</a>
+					<a 
+						href='<c:url value="/admin/inventory/category/delete"><c:param name="id" value="${category.id}" /></c:url>' 
+						class="btn btn-outline-danger">Delete</a>
 				</td>
 			</tr>
 			</c:forEach>
 			</tbody>
 		</table>
+		<c:if test="${totalPages gt 1}">
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item  <c:if test="${currentPage eq 1}">disabled</c:if>">
+			      <a class="page-link" href='<c:url value="/admin/inventory/category"><c:param name="page" value="${currentPage - 1}" /></c:url>' tabindex="-1" aria-disabled="true">Previous</a>
+			    </li>
+			    <c:forEach var="index" begin="1" end="${totalPages}" step="1">
+			    	<li class="page-item">
+			    		<a class="page-link" href='<c:url value="/admin/inventory/category"><c:param name="page" value="${index}" /></c:url>'>
+			    			${index}
+			    		</a>
+			    	</li>
+			    </c:forEach>
+			    <li class="page-item <c:if test="${currentPage eq totalPages}">disabled</c:if>">
+			      <a class="page-link" href='<c:url value="/admin/inventory/category"><c:param name="page" value="${currentPage + 1}" /></c:url>'>Next</a>
+			    </li>
+			  </ul>
+			</nav>
+		</c:if>
 	</div>
 </div>
 </c:if>
 <%@include file="dashboardFooter.jsp"%>
+
+
+
+
+
+
+
+
+

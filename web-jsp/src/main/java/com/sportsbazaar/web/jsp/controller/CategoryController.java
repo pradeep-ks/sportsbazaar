@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.sportsbazaar.persistence.repository.CategoryRepository;
+import com.sportsbazaar.web.jsp.service.CategoryService;
 
 @Controller
 public class CategoryController {
 
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategoryService categoryService;
 	
 	@RequestMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String getCategories() {
-		var categories = this.categoryRepository.findAllCategoryNames();
+		var categories = this.categoryService.findAllCategoryNames();
 		var gson = new Gson();
 		return gson.toJson(categories);
 	}
