@@ -37,10 +37,6 @@
 							</div>
 						</c:if>
 						<form:hidden path="id" value="${product.id}" />
-<%-- 						<div class="mb-3">
-							<form:label path="id" class="form-label">Product #</form:label>
-							<form:input path="id" cssClass="form-control disabled" disabled="true" />
-						</div> --%>
 						<div class="form-group">
 							<form:label path="productName">Name of Product</form:label>
 							<form:input path="productName" cssClass="form-control" />

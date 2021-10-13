@@ -51,6 +51,9 @@
 		<div class="col">
 			<a href="<c:url value="/products"/>" class="btn btn-link">Back to Shopping</a>
 		</div>
+		<div class="col">
+			<a href="<c:url value="/checkout?cartId=${cartId}" />" class="btn btn-link" ng-disabled="$ctrl.cart.cartItems.length === 0">Checkout Now!</a>
+		</div>
 	</div>
 </main>
 <%@ include file="common/footer.jsp" %>
