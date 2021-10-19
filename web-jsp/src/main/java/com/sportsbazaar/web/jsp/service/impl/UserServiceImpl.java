@@ -15,6 +15,8 @@ import com.sportsbazaar.persistence.model.User;
 import com.sportsbazaar.persistence.repository.RoleRepository;
 import com.sportsbazaar.persistence.repository.UserRepository;
 import com.sportsbazaar.web.jsp.dto.SignUpDTO;
+import com.sportsbazaar.web.jsp.exception.AppException;
+import com.sportsbazaar.web.jsp.exception.ResourceNotFoundException;
 import com.sportsbazaar.web.jsp.service.UserService;
 
 @Service("userService")
@@ -39,17 +41,17 @@ public class UserServiceImpl implements UserService {
 	user.setPassword(this.passwordEncoder.encode(payload.getPassword()));
 	user.setEnabled(true);
 	Role role = this.roleRepository.findByRoleName(RoleName.ROLE_CUSTOMER)
-		.orElseThrow(() -> new RuntimeException("Could not set user role!"));
+		.orElseThrow(() -> new AppException("Could not set user role!"));
 	user.setRoles(Collections.singleton(role));
 
 	Cart cart = new Cart();
 	cart.setUser(user);
 	user.setCart(cart);
-	
+
 	ShippingAddress address = new ShippingAddress();
 	user.setShippingAddress(address);
 	address.setUser(user);
-	
+
 	return this.userRepository.saveAndFlush(user);
     }
 
@@ -73,7 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String name) {
 	User user = this.userRepository.findByUsername(name)
-		.orElseThrow(() -> new RuntimeException("User not found with username = " + name));
+		.orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "username", name));
 	return user;
     }
 

@@ -12,6 +12,7 @@ import com.sportsbazaar.persistence.model.CartItem;
 import com.sportsbazaar.persistence.model.Product;
 import com.sportsbazaar.persistence.model.User;
 import com.sportsbazaar.persistence.repository.CartRepository;
+import com.sportsbazaar.web.jsp.exception.ResourceNotFoundException;
 import com.sportsbazaar.web.jsp.service.CartItemService;
 import com.sportsbazaar.web.jsp.service.CartService;
 import com.sportsbazaar.web.jsp.service.ProductService;
@@ -66,15 +67,14 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void emptyCart(Long cartId) {
-	Cart cart = this.cartRepository.findById(cartId)
-		.orElseThrow(() -> new RuntimeException("Cart with id = " + cartId + " not found"));
+	Cart cart = findById(cartId);
 	this.cartItemService.deleteAllByCart(cart);
     }
 
     @Override
     public Cart findById(Long cartId) {
 	return this.cartRepository.findById(cartId)
-		.orElseThrow(() -> new RuntimeException("Cart with id = " + cartId + " not found"));
+		.orElseThrow(() -> new ResourceNotFoundException(Cart.class.getName(), "id", cartId));
     }
 
 }

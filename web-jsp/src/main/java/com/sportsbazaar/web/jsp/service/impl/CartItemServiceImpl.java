@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sportsbazaar.persistence.model.Cart;
 import com.sportsbazaar.persistence.model.CartItem;
 import com.sportsbazaar.persistence.repository.CartItemRepository;
+import com.sportsbazaar.web.jsp.exception.ResourceNotFoundException;
 import com.sportsbazaar.web.jsp.service.CartItemService;
 
 @Service("cartItemService")
@@ -39,7 +40,7 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public CartItem findOne(Long itemId) {
 	CartItem cartItem = this.cartItemRepository.findById(itemId)
-		.orElseThrow(() -> new RuntimeException("Cart item with id not found"));
+		.orElseThrow(() -> new ResourceNotFoundException(Cart.class.getName(), "id", itemId));
 	return cartItem;
     }
 

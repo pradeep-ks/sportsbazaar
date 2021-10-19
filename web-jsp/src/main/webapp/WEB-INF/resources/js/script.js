@@ -10,8 +10,9 @@ function addToCart(productId) {
 	
 	http.onreadystatechange = () => {
 		if (http.readyState === XMLHttpRequest.DONE) {
+			console.log(http.status);
 			if (http.status === 200) {
-				console.log(http.responseText);
+				//console.log(http.responseText);
 				alert('Product added to cart');
 			} else {
 				alert('Oops! Something went wrong!!');

@@ -8,6 +8,7 @@ import com.sportsbazaar.persistence.model.ShippingAddress;
 import com.sportsbazaar.persistence.model.User;
 import com.sportsbazaar.persistence.repository.ShippingAddressRepository;
 import com.sportsbazaar.persistence.repository.UserRepository;
+import com.sportsbazaar.web.jsp.exception.ResourceNotFoundException;
 import com.sportsbazaar.web.jsp.service.ShippingAddressService;
 
 @Service
@@ -24,7 +25,7 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
     @Transactional
     public void save(ShippingAddress address, Long userId) {
 	User user = this.userRepository.findById(userId)
-		.orElseThrow(() -> new RuntimeException("User with id not found!"));
+		.orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "id", userId));
 	address.setUser(user);
 	this.shippingAddressRepository.saveAndFlush(address);
     }

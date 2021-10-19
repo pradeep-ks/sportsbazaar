@@ -12,6 +12,7 @@ import com.sportsbazaar.persistence.model.User;
 import com.sportsbazaar.persistence.model.UserOrder;
 import com.sportsbazaar.persistence.repository.UserOrderRepository;
 import com.sportsbazaar.persistence.repository.UserRepository;
+import com.sportsbazaar.web.jsp.exception.ResourceNotFoundException;
 import com.sportsbazaar.web.jsp.service.UserOrderService;
 
 @Service("userOrderService")
@@ -34,7 +35,7 @@ public class UserOrderServiceImpl implements UserOrderService {
     @Override
     public List<UserOrder> findAllOrdersByUserId(Long userId) {
 	User user = this.userRepository.findById(userId)
-		.orElseThrow(() -> new RuntimeException("User with id not found!"));
+		.orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "id", userId));
 
 	return this.userOrderRepository.findByUser(user);
     }
@@ -42,7 +43,7 @@ public class UserOrderServiceImpl implements UserOrderService {
     @Override
     public UserOrder findById(Long orderId) {
 	return this.userOrderRepository.findById(orderId)
-		.orElseThrow(() -> new RuntimeException("User order with id not found!"));
+		.orElseThrow(() -> new ResourceNotFoundException(UserOrder.class.getSimpleName(), "id", orderId));
     }
 
 }
